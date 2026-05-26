@@ -1,0 +1,34 @@
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server
+    container_name: clickhouse-server
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+    environment:
+      CLICKHOUSE_USER: admin
+      CLICKHOUSE_PASSWORD: admin
+      CLICKHOUSE_DB: stat
+  web:
+    build: .
+    ports:
+      - "9090:9090"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - CLICKHOUSE_USER=admin
+      - CLICKHOUSE_PASSWORD=admin
+      - CLICKHOUSE_DB=stat
+      - CLICKHOUSE_HOST=clickhouse
+      - CLICKHOUSE_PORT=8123
+      - SERVER_PORT=9090
+    depends_on:
+      - clickhouse
+
+volumes:
+  clickhouse_data:
