@@ -23,20 +23,24 @@
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 100%;
             margin: 0 auto;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding: 20px;
+            margin-bottom: 15px;
+            padding: 15px 20px;
             background: linear-gradient(135deg, #1a1f3a 0%, #0f1433 100%);
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.05);
+            flex-shrink: 0;
         }
         
         .header-left {
@@ -46,7 +50,7 @@
         }
         
         .header h1 {
-            font-size: 24px;
+            font-size: 22px;
             color: #f0a500;
             display: flex;
             align-items: center;
@@ -55,8 +59,8 @@
         }
         
         .status-indicator {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             background: #4caf50;
             display: inline-block;
@@ -77,10 +81,10 @@
         }
         
         .update-counter {
-            font-size: 12px;
+            font-size: 11px;
             color: #888;
             background: rgba(255, 255, 255, 0.05);
-            padding: 5px 10px;
+            padding: 4px 8px;
             border-radius: 20px;
         }
         
@@ -91,11 +95,11 @@
         .price-container {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         
         .current-price .price {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: bold;
             color: #4caf50;
             transition: color 0.3s ease;
@@ -106,7 +110,7 @@
         }
         
         .price-arrow {
-            font-size: 24px;
+            font-size: 20px;
             transition: all 0.3s ease;
         }
         
@@ -118,15 +122,29 @@
             color: #f44336;
         }
         
+        .main-content {
+            display: flex;
+            gap: 15px;
+            flex: 1;
+            min-height: 0;
+        }
+        
+        .chart-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+        
         .chart-container {
+            flex: 1;
             background: linear-gradient(135deg, #1a1f3a 0%, #0f1433 100%);
             border-radius: 12px;
-            padding: 20px;
+            padding: 15px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.05);
             position: relative;
-            height: 600px;
-            margin-bottom: 20px;
+            min-height: 400px;
         }
         
         canvas {
@@ -136,71 +154,124 @@
         
         .controls {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-top: 10px;
             flex-wrap: wrap;
+            flex-shrink: 0;
         }
         
         .btn {
-            padding: 10px 20px;
+            padding: 8px 16px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             background: rgba(15, 20, 50, 0.8);
             color: #e0e0e0;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             transition: all 0.3s ease;
             font-weight: 500;
             backdrop-filter: blur(10px);
+            white-space: nowrap;
         }
         
         .btn:hover {
             background: rgba(30, 40, 80, 0.9);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
         
         .btn.active {
             background: linear-gradient(135deg, #f0a500, #f57c00);
             color: #0a0e27;
             border-color: #f0a500;
-            box-shadow: 0 0 20px rgba(240, 165, 0, 0.3);
+            box-shadow: 0 0 15px rgba(240, 165, 0, 0.3);
         }
         
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+        .btn.danger {
+            background: rgba(244, 67, 54, 0.2);
+            border-color: rgba(244, 67, 54, 0.3);
+        }
+        
+        .btn.danger:hover {
+            background: rgba(244, 67, 54, 0.3);
+        }
+        
+        .side-panel {
+            width: 350px;
+            background: linear-gradient(135deg, #1a1f3a 0%, #0f1433 100%);
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+            flex-shrink: 0;
         }
         
         .stat-card {
-            background: linear-gradient(135deg, #1a1f3a 0%, #0f1433 100%);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px;
+            border-radius: 8px;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-            border-color: rgba(240, 165, 0, 0.3);
         }
         
         .stat-label {
-            font-size: 11px;
+            font-size: 10px;
             color: #666;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         
         .stat-value {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             color: #f0a500;
-            transition: all 0.3s ease;
+        }
+        
+        .history-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .history-controls h3 {
+            color: #888;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        
+        .date-input-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .date-input {
+            flex: 1;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: #e0e0e0;
+            font-size: 13px;
+        }
+        
+        .date-input:focus {
+            outline: none;
+            border-color: #f0a500;
+        }
+        
+        .data-stats {
+            font-size: 11px;
+            color: #666;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 6px;
         }
         
         .debug-panel {
@@ -208,12 +279,12 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             padding: 10px;
-            margin-top: 20px;
             font-family: monospace;
-            font-size: 12px;
-            max-height: 200px;
+            font-size: 11px;
+            max-height: 150px;
             overflow-y: auto;
             display: none;
+            margin-top: auto;
         }
         
         .debug-panel.show {
@@ -222,7 +293,7 @@
         
         .debug-entry {
             color: #4caf50;
-            margin: 2px 0;
+            margin: 1px 0;
         }
         
         .debug-entry.error {
@@ -236,6 +307,17 @@
         .debug-entry.warning {
             color: #f0a500;
         }
+        
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .side-panel {
+                width: 100%;
+                max-height: 300px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -247,7 +329,7 @@
                         <span class="status-indicator" id="statusIndicator"></span>
                         BTC/USDT
                     </h1>
-                    <small style="color: #888;">Real-time WebSocket • Обновление каждые 5с</small>
+                    <small style="color: #888;">Real-time WebSocket • История доступна</small>
                 </div>
                 <div class="update-counter" id="updateCounter">
                     Загрузка...
@@ -258,50 +340,91 @@
                     <span class="price-arrow" id="priceArrow">●</span>
                     <div class="price" id="currentPrice">Загрузка...</div>
                 </div>
-                <div class="change" id="priceChange" style="font-size: 14px; margin-top: 5px;"></div>
+                <div class="change" id="priceChange" style="font-size: 13px; margin-top: 4px;"></div>
             </div>
         </div>
         
-        <div class="chart-container">
-            <canvas id="tradingChart"></canvas>
+        <div class="main-content">
+            <div class="chart-panel">
+                <div class="chart-container">
+                    <canvas id="tradingChart"></canvas>
+                </div>
+                
+                <div class="controls">
+                    <button class="btn active" onclick="resetZoom()">🔄 Сбросить</button>
+                    <button class="btn" onclick="fitAllData()">📊 Показать всё</button>
+                    <button class="btn" onclick="setTimeRange(60)">1м</button>
+                    <button class="btn" onclick="setTimeRange(300)">5м</button>
+                    <button class="btn" onclick="setTimeRange(900)">15м</button>
+                    <button class="btn" onclick="setTimeRange(3600)">1ч</button>
+                    <button class="btn" onclick="setTimeRange(14400)">4ч</button>
+                    <button class="btn" onclick="setTimeRange(86400)">24ч</button>
+                    <button class="btn" onclick="toggleVolumeUSD()">💰 Vol USD</button>
+                    <button class="btn" onclick="toggleVolumeBTC()">₿ Vol BTC</button>
+                    <button class="btn" onclick="toggleDebug()">🐛</button>
+                </div>
+            </div>
+            
+            <div class="side-panel">
+                <div class="stat-card">
+                    <div class="stat-label">💰 Текущая цена</div>
+                    <div class="stat-value" id="statPrice">-</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-label">📈 Volume USD</div>
+                    <div class="stat-value" id="statVolumeUSD">-</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-label">₿ Volume BTC</div>
+                    <div class="stat-value" id="statVolumeBTC">-</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-label">⏱️ Обновление</div>
+                    <div class="stat-value" id="statLastUpdate">-</div>
+                </div>
+                
+                <div class="history-controls">
+                    <h3>📅 Загрузка истории</h3>
+                    
+                    <div class="date-input-group">
+                        <span style="color: #888; font-size: 12px;">С:</span>
+                        <input type="datetime-local" id="dateStart" class="date-input">
+                    </div>
+                    
+                    <div class="date-input-group">
+                        <span style="color: #888; font-size: 12px;">По:</span>
+                        <input type="datetime-local" id="dateEnd" class="date-input">
+                    </div>
+                    
+                    <button class="btn" onclick="loadHistoryRange()" style="width: 100%;">
+                        📥 Загрузить диапазон
+                    </button>
+                    
+                    <button class="btn" onclick="loadAllHistory()" style="width: 100%;">
+                        📚 Загрузить всю историю
+                    </button>
+                    
+                    <button class="btn danger" onclick="clearAllData()" style="width: 100%;">
+                        🗑️ Очистить данные
+                    </button>
+                </div>
+                
+                <div class="data-stats" id="dataStats">
+                    <div>Точек на графике: <span id="pointsCount">0</span></div>
+                    <div>Диапазон: <span id="dateRange">-</span></div>
+                </div>
+                
+                <div class="debug-panel" id="debugPanel"></div>
+            </div>
         </div>
-        
-        <div class="controls">
-            <button class="btn active" onclick="resetZoom()">🔄 Сбросить зум</button>
-            <button class="btn" onclick="setTimeRange(60)">📊 1 мин</button>
-            <button class="btn" onclick="setTimeRange(300)">📊 5 мин</button>
-            <button class="btn" onclick="setTimeRange(900)">📊 15 мин</button>
-            <button class="btn" onclick="setTimeRange(3600)">📊 1 час</button>
-            <button class="btn" onclick="toggleVolumeUSD()">💰 Volume USD</button>
-            <button class="btn" onclick="toggleVolumeBTC()">₿ Volume BTC</button>
-            <button class="btn" onclick="toggleDebug()">🐛 Debug</button>
-        </div>
-        
-        <div class="stats">
-            <div class="stat-card">
-                <div class="stat-label">💰 Последняя цена</div>
-                <div class="stat-value" id="statPrice">-</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">📈 Volume USD</div>
-                <div class="stat-value" id="statVolumeUSD">-</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">₿ Volume BTC</div>
-                <div class="stat-value" id="statVolumeBTC">-</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">⏱️ Последнее обновление</div>
-                <div class="stat-value" id="statLastUpdate">-</div>
-            </div>
-        </div>
-        
-        <div class="debug-panel" id="debugPanel"></div>
     </div>
 
     <script>
-        const API_BASE_URL = 'http://localhost:9090';
-        const WS_URL = 'ws://localhost:9090/ws/observe';
+        const API_BASE_URL = 'http://localhost:8080';
+        const WS_URL = 'ws://localhost:8080/ws/observe';
         
         let chart = null;
         let ws = null;
@@ -310,129 +433,70 @@
         let previousPrice = null;
         let updateCount = 0;
         let debugEnabled = false;
+        let allDataPoints = []; // Храним все точки данных
         
         // Безопасное форматирование даты
         function formatDateTime(dateValue) {
             try {
-                if (!dateValue) {
-                    return new Date().toLocaleTimeString();
-                }
-                
-                // Если это уже объект Date
-                if (dateValue instanceof Date) {
-                    return dateValue.toLocaleTimeString();
-                }
-                
-                // Если это число (timestamp)
+                if (!dateValue) return new Date().toLocaleTimeString();
+                if (dateValue instanceof Date) return dateValue.toLocaleTimeString();
                 if (typeof dateValue === 'number') {
                     const date = new Date(dateValue);
-                    if (!isNaN(date.getTime())) {
-                        return date.toLocaleTimeString();
-                    }
+                    if (!isNaN(date.getTime())) return date.toLocaleTimeString();
                 }
-                
-                // Если это строка
                 if (typeof dateValue === 'string') {
-                    // Пробуем разные форматы
                     let date = new Date(dateValue);
-                    if (!isNaN(date.getTime())) {
-                        return date.toLocaleTimeString();
-                    }
-                    
-                    // Пробуем заменить пробел на T для ISO формата
+                    if (!isNaN(date.getTime())) return date.toLocaleTimeString();
                     date = new Date(dateValue.replace(' ', 'T'));
-                    if (!isNaN(date.getTime())) {
-                        return date.toLocaleTimeString();
-                    }
-                    
-                    // Пробуем с миллисекундами
+                    if (!isNaN(date.getTime())) return date.toLocaleTimeString();
                     date = new Date(dateValue.replace(' ', 'T') + 'Z');
-                    if (!isNaN(date.getTime())) {
-                        return date.toLocaleTimeString();
-                    }
+                    if (!isNaN(date.getTime())) return date.toLocaleTimeString();
                 }
-                
-                // Если ничего не сработало, возвращаем текущее время
-                debug('⚠️ Could not parse date: ' + dateValue, 'warning');
                 return new Date().toLocaleTimeString();
-                
             } catch (error) {
-                debug('❌ Error formatting date: ' + error.message, 'error');
                 return new Date().toLocaleTimeString();
             }
         }
         
-        // Получение timestamp из даты для сортировки
+        // Получение timestamp из даты
         function getTimestamp(dateValue) {
             try {
                 if (!dateValue) return Date.now();
-                
-                if (dateValue instanceof Date) {
-                    return dateValue.getTime();
-                }
-                
-                if (typeof dateValue === 'number') {
-                    return dateValue;
-                }
-                
+                if (dateValue instanceof Date) return dateValue.getTime();
+                if (typeof dateValue === 'number') return dateValue;
                 if (typeof dateValue === 'string') {
                     let date = new Date(dateValue);
-                    if (!isNaN(date.getTime())) {
-                        return date.getTime();
-                    }
-                    
+                    if (!isNaN(date.getTime())) return date.getTime();
                     date = new Date(dateValue.replace(' ', 'T'));
-                    if (!isNaN(date.getTime())) {
-                        return date.getTime();
-                    }
-                    
+                    if (!isNaN(date.getTime())) return date.getTime();
                     date = new Date(dateValue.replace(' ', 'T') + 'Z');
-                    if (!isNaN(date.getTime())) {
-                        return date.getTime();
-                    }
+                    if (!isNaN(date.getTime())) return date.getTime();
                 }
-                
                 return Date.now();
             } catch (error) {
                 return Date.now();
             }
         }
         
-        // Безопасное форматирование даты для отображения в статистике
         function formatFullDateTime(dateValue) {
             try {
-                if (!dateValue) {
-                    return new Date().toLocaleString();
-                }
-                
+                if (!dateValue) return new Date().toLocaleString();
                 let date;
-                
-                if (dateValue instanceof Date) {
-                    date = dateValue;
-                } else if (typeof dateValue === 'number') {
+                if (dateValue instanceof Date) date = dateValue;
+                else if (typeof dateValue === 'number') date = new Date(dateValue);
+                else if (typeof dateValue === 'string') {
                     date = new Date(dateValue);
-                } else if (typeof dateValue === 'string') {
-                    date = new Date(dateValue);
-                    if (isNaN(date.getTime())) {
-                        date = new Date(dateValue.replace(' ', 'T'));
-                    }
-                    if (isNaN(date.getTime())) {
-                        date = new Date(dateValue.replace(' ', 'T') + 'Z');
-                    }
+                    if (isNaN(date.getTime())) date = new Date(dateValue.replace(' ', 'T'));
+                    if (isNaN(date.getTime())) date = new Date(dateValue.replace(' ', 'T') + 'Z');
                 }
-                
-                if (date && !isNaN(date.getTime())) {
-                    return date.toLocaleString();
-                }
-                
+                if (date && !isNaN(date.getTime())) return date.toLocaleString();
                 return new Date().toLocaleString();
-                
             } catch (error) {
                 return new Date().toLocaleString();
             }
         }
         
-        // Нормализация данных - приводит все числовые поля к числам
+        // Нормализация данных
         function normalizeData(data) {
             return {
                 created_at: data.created_at || new Date().toISOString(),
@@ -446,7 +510,6 @@
         // Функция для отладки
         function debug(message, type = 'info') {
             console.log(message);
-            
             if (debugEnabled) {
                 const panel = document.getElementById('debugPanel');
                 if (panel) {
@@ -458,8 +521,6 @@
                     entry.textContent = new Date().toLocaleTimeString() + ' - ' + message;
                     panel.appendChild(entry);
                     panel.scrollTop = panel.scrollHeight;
-                    
-                    // Ограничиваем количество записей
                     while (panel.children.length > 100) {
                         panel.removeChild(panel.firstChild);
                     }
@@ -476,31 +537,56 @@
             debug('Debug ' + (debugEnabled ? 'включен' : 'выключен'));
         }
         
-        // Сортировка данных по времени
-        function sortDataByTime(dataArray) {
-            return dataArray.sort((a, b) => {
-                const timeA = a.timestamp || getTimestamp(a.created_at);
-                const timeB = b.timestamp || getTimestamp(b.created_at);
-                return timeA - timeB;
+        // Обновление графика из allDataPoints
+        function updateChartFromAllData() {
+            if (!chart) return;
+            
+            // Сортируем все данные по времени
+            allDataPoints.sort((a, b) => a.timestamp - b.timestamp);
+            
+            // Очищаем график
+            chart.data.labels = [];
+            chart.data.datasets.forEach(dataset => dataset.data = []);
+            
+            // Добавляем все данные
+            allDataPoints.forEach(data => {
+                chart.data.labels.push(formatDateTime(data.created_at));
+                chart.data.datasets[0].data.push(data.price);
+                chart.data.datasets[1].data.push(data.volume);
+                chart.data.datasets[2].data.push(data.volume_cur);
             });
+            
+            chart.update('none');
+            updateDataStats();
+            
+            // Обновляем текущую цену
+            if (allDataPoints.length > 0) {
+                updateCurrentPrice(allDataPoints[allDataPoints.length - 1]);
+            }
+        }
+        
+        // Обновление статистики данных
+        function updateDataStats() {
+            document.getElementById('pointsCount').textContent = allDataPoints.length;
+            
+            if (allDataPoints.length > 0) {
+                const firstDate = formatFullDateTime(allDataPoints[0].created_at);
+                const lastDate = formatFullDateTime(allDataPoints[allDataPoints.length - 1].created_at);
+                document.getElementById('dateRange').textContent = `${firstDate} — ${lastDate}`;
+            } else {
+                document.getElementById('dateRange').textContent = 'Нет данных';
+            }
         }
         
         // Инициализация графика
         function initChart() {
             try {
                 const canvas = document.getElementById('tradingChart');
-                if (!canvas) {
-                    debug('Canvas element not found', 'error');
-                    return false;
-                }
+                if (!canvas) return false;
                 
                 const ctx = canvas.getContext('2d');
-                if (!ctx) {
-                    debug('Could not get 2d context', 'error');
-                    return false;
-                }
+                if (!ctx) return false;
                 
-                // Уничтожаем старый график если есть
                 if (chart) {
                     chart.destroy();
                     chart = null;
@@ -577,10 +663,8 @@
                                     color: '#e0e0e0',
                                     usePointStyle: true,
                                     pointStyle: 'circle',
-                                    padding: 20,
-                                    font: {
-                                        size: 12
-                                    }
+                                    padding: 15,
+                                    font: { size: 11 }
                                 }
                             },
                             tooltip: {
@@ -591,21 +675,17 @@
                                 bodyColor: '#e0e0e0',
                                 borderColor: 'rgba(240, 165, 0, 0.3)',
                                 borderWidth: 1,
-                                padding: 12,
+                                padding: 10,
                                 callbacks: {
                                     label: function(context) {
                                         let label = context.dataset.label || '';
-                                        if (label) {
-                                            label += ': ';
-                                        }
+                                        if (label) label += ': ';
+                                        const value = parseFloat(context.parsed.y) || 0;
                                         if (context.datasetIndex === 0) {
-                                            const value = parseFloat(context.parsed.y) || 0;
                                             label += '$' + value.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
                                         } else if (context.datasetIndex === 1) {
-                                            const value = parseFloat(context.parsed.y) || 0;
-                                            label += '$' + value.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
-                                        } else if (context.datasetIndex === 2) {
-                                            const value = parseFloat(context.parsed.y) || 0;
+                                            label += '$' + value.toLocaleString('en-US');
+                                        } else {
                                             label += value.toFixed(4) + ' BTC';
                                         }
                                         return label;
@@ -637,11 +717,9 @@
                                 },
                                 ticks: {
                                     color: '#666',
-                                    maxTicksLimit: 15,
+                                    maxTicksLimit: 20,
                                     autoSkip: true,
-                                    font: {
-                                        size: 11
-                                    }
+                                    font: { size: 10 }
                                 }
                             },
                             'y-price': {
@@ -657,18 +735,7 @@
                                         const numValue = parseFloat(value) || 0;
                                         return '$' + numValue.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
                                     },
-                                    font: {
-                                        size: 11
-                                    }
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Цена (USDT)',
-                                    color: '#4caf50',
-                                    font: {
-                                        size: 12,
-                                        weight: 'bold'
-                                    }
+                                    font: { size: 10 }
                                 }
                             },
                             'y-volume-usd': {
@@ -682,25 +749,11 @@
                                     color: '#2196f3',
                                     callback: function(value) {
                                         const numValue = parseFloat(value) || 0;
-                                        if (numValue >= 1000000) {
-                                            return '$' + (numValue / 1000000).toFixed(1) + 'M';
-                                        } else if (numValue >= 1000) {
-                                            return '$' + (numValue / 1000).toFixed(1) + 'K';
-                                        }
+                                        if (numValue >= 1000000) return '$' + (numValue / 1000000).toFixed(1) + 'M';
+                                        if (numValue >= 1000) return '$' + (numValue / 1000).toFixed(1) + 'K';
                                         return '$' + numValue;
                                     },
-                                    font: {
-                                        size: 11
-                                    }
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Volume USD',
-                                    color: '#2196f3',
-                                    font: {
-                                        size: 12,
-                                        weight: 'bold'
-                                    }
+                                    font: { size: 10 }
                                 }
                             },
                             'y-volume-btc': {
@@ -713,28 +766,16 @@
                                 ticks: {
                                     color: '#f0a500',
                                     callback: function(value) {
-                                        const numValue = parseFloat(value) || 0;
-                                        return numValue.toFixed(2) + ' BTC';
+                                        return (parseFloat(value) || 0).toFixed(2) + ' BTC';
                                     },
-                                    font: {
-                                        size: 11
-                                    }
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Volume BTC',
-                                    color: '#f0a500',
-                                    font: {
-                                        size: 12,
-                                        weight: 'bold'
-                                    }
+                                    font: { size: 10 }
                                 }
                             }
                         }
                     }
                 });
                 
-                debug('✅ Chart initialized successfully');
+                debug('✅ Chart initialized');
                 return true;
             } catch (error) {
                 debug('❌ Error initializing chart: ' + error.message, 'error');
@@ -742,95 +783,156 @@
             }
         }
         
-        // Загрузка исторических данных
-        async function loadHistoricalData() {
+        // Загрузка последних данных (для начальной загрузки)
+        async function loadInitialData() {
             try {
-                debug('📥 Loading historical data from API...');
+                debug('📥 Loading initial data...');
                 const response = await fetch(`${API_BASE_URL}/last-prices`);
                 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 
                 const rawData = await response.json();
-                debug(`📊 Received ${rawData.length} historical data points`);
+                debug(`📊 Received ${rawData.length} points`);
                 
                 if (rawData && rawData.length > 0) {
-                    // Нормализуем данные
-                    let data = rawData.map(item => normalizeData(item));
-                    
-                    // СОРТИРУЕМ ДАННЫЕ ПО ВРЕМЕНИ ОТ СТАРЫХ К НОВЫМ
-                    data = sortDataByTime(data);
-                    
-                    debug(`📊 After sorting: first date=${formatDateTime(data[0].created_at)}, last date=${formatDateTime(data[data.length-1].created_at)}`);
-                    
-                    // Очищаем существующие данные
-                    chart.data.labels = [];
-                    chart.data.datasets.forEach(dataset => dataset.data = []);
-                    
-                    // Добавляем данные в правильном порядке
-                    data.forEach((item, index) => {
-                        addDataPoint(item, false);
-                    });
-                    
-                    // Обновляем график
-                    chart.update('none');
-                    debug('✅ Historical data loaded and chart updated (sorted by time)');
-                    
-                    // Обновляем текущую цену (последняя точка - самая новая)
-                    const lastItem = data[data.length - 1];
-                    updateCurrentPrice(lastItem);
-                    
+                    const data = rawData.map(item => normalizeData(item));
+                    allDataPoints = data;
+                    updateChartFromAllData();
                     document.getElementById('updateCounter').textContent = `Загружено: ${data.length} точек`;
-                } else {
-                    debug('⚠️ No data received from API', 'error');
-                    document.getElementById('updateCounter').textContent = 'Нет данных';
                 }
             } catch (error) {
-                debug('❌ Error loading historical data: ' + error.message, 'error');
+                debug('❌ Error loading initial data: ' + error.message, 'error');
                 document.getElementById('updateCounter').textContent = 'Ошибка загрузки';
             }
         }
         
-        // Добавление точки данных
-        function addDataPoint(data, update = true) {
-            if (!chart) {
-                debug('Chart not ready for adding data', 'error');
+        // Загрузка всей истории
+        async function loadAllHistory() {
+            try {
+                debug('📥 Loading ALL history...');
+                document.getElementById('updateCounter').textContent = 'Загрузка всей истории...';
+                
+                const response = await fetch(`${API_BASE_URL}/prices`);
+                
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                
+                const rawData = await response.json();
+                debug(`📊 Received ${rawData.length} total points`);
+                
+                if (rawData && rawData.length > 0) {
+                    const data = rawData.map(item => normalizeData(item));
+                    allDataPoints = data;
+                    updateChartFromAllData();
+                    
+                    // Показываем все данные
+                    fitAllData();
+                    
+                    document.getElementById('updateCounter').textContent = `Всего: ${data.length} точек`;
+                }
+            } catch (error) {
+                debug('❌ Error loading all history: ' + error.message, 'error');
+                document.getElementById('updateCounter').textContent = 'Ошибка загрузки';
+            }
+        }
+        
+        // Загрузка диапазона истории
+        async function loadHistoryRange() {
+            const startInput = document.getElementById('dateStart').value;
+            const endInput = document.getElementById('dateEnd').value;
+            
+            if (!startInput || !endInput) {
+                alert('Выберите начальную и конечную дату');
                 return;
             }
             
             try {
-                // Нормализуем данные
+                const start = new Date(startInput).toISOString();
+                const end = new Date(endInput).toISOString();
+                
+                debug(`📥 Loading history from ${start} to ${end}`);
+                document.getElementById('updateCounter').textContent = 'Загрузка диапазона...';
+                
+                const url = `${API_BASE_URL}/prices-window?start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}`;
+                const response = await fetch(url);
+                
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                
+                const rawData = await response.json();
+                debug(`📊 Received ${rawData.length} points for range`);
+                
+                if (rawData && rawData.length > 0) {
+                    const data = rawData.map(item => normalizeData(item));
+                    
+                    // Добавляем новые данные к существующим
+                    const existingTimestamps = new Set(allDataPoints.map(p => p.timestamp));
+                    const newData = data.filter(p => !existingTimestamps.has(p.timestamp));
+                    
+                    allDataPoints = [...allDataPoints, ...newData];
+                    updateChartFromAllData();
+                    
+                    // Показываем загруженный диапазон
+                    fitAllData();
+                    
+                    document.getElementById('updateCounter').textContent = `Всего: ${allDataPoints.length} точек (+${newData.length})`;
+                }
+            } catch (error) {
+                debug('❌ Error loading history range: ' + error.message, 'error');
+                document.getElementById('updateCounter').textContent = 'Ошибка загрузки';
+            }
+        }
+        
+        // Очистка всех данных
+        function clearAllData() {
+            if (confirm('Удалить все данные с графика?')) {
+                allDataPoints = [];
+                updateChartFromAllData();
+                previousPrice = null;
+                updateCount = 0;
+                document.getElementById('updateCounter').textContent = 'Данные очищены';
+                document.getElementById('currentPrice').textContent = 'Загрузка...';
+                document.getElementById('priceChange').innerHTML = '';
+                debug('🗑️ All data cleared');
+            }
+        }
+        
+        // Показать все данные
+        function fitAllData() {
+            if (!chart || allDataPoints.length === 0) return;
+            chart.resetZoom();
+            
+            // Устанавливаем диапазон на все данные
+            if (allDataPoints.length > 1) {
+                const firstTime = allDataPoints[0].timestamp;
+                const lastTime = allDataPoints[allDataPoints.length - 1].timestamp;
+                const padding = (lastTime - firstTime) * 0.05;
+                
+                chart.options.scales.x.min = firstTime - padding;
+                chart.options.scales.x.max = lastTime + padding;
+                chart.update('none');
+            }
+        }
+        
+        // Добавление точки данных из WebSocket
+        function addDataPoint(data) {
+            if (!chart) return;
+            
+            try {
                 const normalizedData = normalizeData(data);
                 
-                // Форматируем время
-                const timestamp = formatDateTime(normalizedData.created_at);
+                // Добавляем в общее хранилище
+                allDataPoints.push(normalizedData);
                 
-                chart.data.labels.push(timestamp);
-                chart.data.datasets[0].data.push(normalizedData.price);
-                chart.data.datasets[1].data.push(normalizedData.volume);
-                chart.data.datasets[2].data.push(normalizedData.volume_cur);
+                // Обновляем график
+                updateChartFromAllData();
                 
-                // Ограничиваем количество точек
-                const maxPoints = 500;
-                while (chart.data.labels.length > maxPoints) {
-                    chart.data.labels.shift();
-                    chart.data.datasets.forEach(dataset => dataset.data.shift());
-                }
+                updateCount++;
+                document.getElementById('updateCounter').textContent = `Обновлений: ${updateCount}`;
                 
-                if (update) {
-                    chart.update('none');
-                    updateCurrentPrice(normalizedData);
-                    updateCount++;
-                    document.getElementById('updateCounter').textContent = `Обновлений: ${updateCount}`;
-                    
-                    if (debugEnabled) {
-                        debug(`📈 #${updateCount}: ${timestamp} | $${normalizedData.price.toFixed(2)} | Vol: $${normalizedData.volume.toFixed(0)} | BTC: ${normalizedData.volume_cur.toFixed(4)}`);
-                    }
+                if (debugEnabled) {
+                    debug(`📈 #${updateCount}: ${formatDateTime(normalizedData.created_at)} | $${normalizedData.price.toFixed(2)}`);
                 }
             } catch (error) {
                 debug('Error adding data point: ' + error.message, 'error');
-                console.error('Error details:', error, 'Data:', data);
             }
         }
         
@@ -842,9 +944,7 @@
             
             if (!priceElement || !data) return;
             
-            // Нормализуем данные
             const normalizedData = normalizeData(data);
-            
             const price = normalizedData.price;
             const volume = normalizedData.volume;
             const volumeCur = normalizedData.volume_cur;
@@ -852,7 +952,6 @@
             const formattedPrice = '$' + price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
             priceElement.textContent = formattedPrice;
             
-            // Обновляем статистику с безопасным форматированием даты
             document.getElementById('statPrice').textContent = formattedPrice;
             document.getElementById('statVolumeUSD').textContent = '$' + volume.toLocaleString('en-US');
             document.getElementById('statVolumeBTC').textContent = volumeCur.toFixed(4) + ' BTC';
@@ -884,52 +983,37 @@
         
         // Подключение WebSocket
         function connectWebSocket() {
-            if (ws && ws.readyState === WebSocket.OPEN) {
-                debug('WebSocket already connected', 'ws');
-                return;
-            }
+            if (ws && ws.readyState === WebSocket.OPEN) return;
             
             try {
                 debug('🔌 Connecting to WebSocket: ' + WS_URL, 'ws');
                 ws = new WebSocket(WS_URL);
                 
                 ws.onopen = function() {
-                    debug('✅ WebSocket connected successfully', 'ws');
+                    debug('✅ WebSocket connected', 'ws');
                     document.getElementById('statusIndicator').classList.remove('disconnected');
                     reconnectAttempts = 0;
                 };
                 
                 ws.onmessage = function(event) {
                     try {
-                        debug('📨 WebSocket message received', 'ws');
                         const rawData = JSON.parse(event.data);
-                        
-                        if (debugEnabled) {
-                            debug('📊 Data: ' + JSON.stringify(rawData), 'ws');
-                        }
-                        
                         if (rawData && rawData.price !== undefined) {
                             addDataPoint(rawData);
-                        } else {
-                            debug('⚠️ Received data without price field: ' + JSON.stringify(rawData), 'warning');
                         }
                     } catch (error) {
-                        debug('❌ Error parsing WebSocket message: ' + error.message, 'error');
-                        debug('Raw data: ' + event.data, 'error');
+                        debug('❌ Error parsing WS message: ' + error.message, 'error');
                     }
                 };
                 
                 ws.onclose = function(event) {
-                    debug(`❌ WebSocket disconnected: code=${event.code}, reason=${event.reason}`, 'ws');
+                    debug(`❌ WebSocket disconnected: code=${event.code}`, 'ws');
                     document.getElementById('statusIndicator').classList.add('disconnected');
-                    
-                    if (!event.wasClean) {
-                        attemptReconnect();
-                    }
+                    if (!event.wasClean) attemptReconnect();
                 };
                 
                 ws.onerror = function(error) {
-                    debug('⚠️ WebSocket error occurred', 'error');
+                    debug('⚠️ WebSocket error', 'error');
                     document.getElementById('statusIndicator').classList.add('disconnected');
                 };
             } catch (error) {
@@ -937,83 +1021,69 @@
             }
         }
         
-        // Попытка переподключения
         function attemptReconnect() {
             if (reconnectAttempts < maxReconnectAttempts) {
                 reconnectAttempts++;
                 const delay = Math.min(1000 * Math.pow(2, reconnectAttempts), 30000);
-                debug(`🔄 Reconnect attempt ${reconnectAttempts}/${maxReconnectAttempts} in ${delay/1000}s...`, 'ws');
-                
-                setTimeout(() => {
-                    connectWebSocket();
-                }, delay);
-            } else {
-                debug('❌ Max reconnect attempts reached', 'error');
+                debug(`🔄 Reconnect ${reconnectAttempts}/${maxReconnectAttempts} in ${delay/1000}s...`, 'ws');
+                setTimeout(() => connectWebSocket(), delay);
             }
         }
         
-        // Управление отображением графиков
         function toggleVolumeUSD() {
             if (!chart) return;
-            const dataset = chart.data.datasets[1];
-            dataset.hidden = !dataset.hidden;
+            chart.data.datasets[1].hidden = !chart.data.datasets[1].hidden;
             chart.update('none');
         }
         
         function toggleVolumeBTC() {
             if (!chart) return;
-            const dataset = chart.data.datasets[2];
-            dataset.hidden = !dataset.hidden;
+            chart.data.datasets[2].hidden = !chart.data.datasets[2].hidden;
             chart.update('none');
         }
         
-        // Сброс зума
         function resetZoom() {
             if (!chart) return;
             chart.resetZoom();
         }
         
-        // Установка временного диапазона
         function setTimeRange(seconds) {
-            if (!chart) return;
+            if (!chart || allDataPoints.length === 0) return;
             
-            const now = Date.now();
-            chart.options.scales.x.min = now - seconds * 1000;
-            chart.options.scales.x.max = now;
+            const lastTime = allDataPoints[allDataPoints.length - 1].timestamp;
+            chart.options.scales.x.min = lastTime - seconds * 1000;
+            chart.options.scales.x.max = lastTime;
             chart.update('none');
         }
         
-        // Инициализация приложения
         async function initApp() {
-            debug('🚀 Starting application initialization...');
+            debug('🚀 Starting application...');
             
-            // Инициализируем график
             if (!initChart()) {
                 debug('Failed to initialize chart', 'error');
                 return;
             }
             
-            // Загружаем исторические данные
-            await loadHistoricalData();
+            // Устанавливаем начальные даты для выбора диапазона
+            const now = new Date();
+            const dayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+            document.getElementById('dateEnd').value = now.toISOString().slice(0, 16);
+            document.getElementById('dateStart').value = dayAgo.toISOString().slice(0, 16);
             
-            // Подключаем WebSocket
+            await loadInitialData();
             connectWebSocket();
             
-            debug('✅ Application initialized successfully');
+            debug('✅ Application initialized');
         }
         
-        // Запуск при загрузке страницы
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', initApp);
         } else {
             initApp();
         }
         
-        // Обработка изменения размера окна
         window.addEventListener('resize', () => {
-            if (chart) {
-                chart.resize();
-            }
+            if (chart) chart.resize();
         });
     </script>
 </body>
